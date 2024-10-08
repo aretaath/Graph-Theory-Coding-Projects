@@ -114,7 +114,9 @@ Route: 0, 1, 3, 2, 3
   - Once the graph is Eulerian (all nodes have even degree), an Eulerian circuit is computed starting from the specified node.
   - The total cost of the circuit is tracked and append each edge's name to the route.
 
-### Actual Output Result and Possibile Causes of Why it Differs
+### Actual Output Result and Possibile Causes
+
+However, there's a problem faced during the making of this code. The result of the output is different from the original expected output in the question. Here is the explanation of the possible causes on why the result might differs from the original question.
 
 **Output**
 ```
