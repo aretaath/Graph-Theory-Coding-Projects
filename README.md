@@ -79,4 +79,54 @@ Both routes have a total cost of 17. Therefore, the program selects one, and in 
 
 ### Overview
 
+The Chinese Postman Problem (CPP) aims to find the shortest closed path that visits every edge in a graph at least once. This implementation reads graph data, handles odd-degree nodes, constructs an Eulerian circuit, and outputs the total cost and the route.
+
+**Input Example**
+```
+3 
+4 
+0 1 2 10 
+1 2 3 5
+2 3 1 7 
+3 3 1 2 
+1
+```
+
+**Expected Output**
+```
+Cost: 26
+Route: 0, 1, 3, 2, 3
+```
+
+### Code Breakdown
+
+- **Input Handling:**
+  - First two lines take the number of `nodes (n)` and `edges (e)`.
+  - The next `e` lines describe the edges with their cost.
+  - The last line gives the start node for the Eulerian circuit.
+- **Graph Construction:**
+  - `networkx` is used to create a multi-graph `(nx.MultiGraph)`.
+  - Each edge is added with its weight (cost) and name (index in the input).
+- **Odd-Degree Node Handling:**
+  - Nodes with an odd degree are identified.
+  - If odd-degree nodes exist, we add extra edges to create an Eulerian graph using a minimum cost matching algorithm between odd-degree nodes.
+- **Eulerian Circuit**
+  - Once the graph is Eulerian (all nodes have even degree), an Eulerian circuit is computed starting from the specified node.
+  - The total cost of the circuit is tracked and append each edge's name to the route.
+
+### Actual Output Result and Possibile Causes of Why it Differs
+
+**Output**
+```
+Cost: 26
+Route: 3, 2, 1, 0
+```
+- **Non-Unique Eulerian Path:**
+
+The Eulerian circuit generated is not guaranteed to match the expected order because multiple valid solutions exist for CPP.
+
+- **Traversal Logic:**
+
+The route depends on how the algorithm decides to traverse edges. In the current implementation, the algorithm may not prioritize the exact input order of edges.
+
 ## 3. The Knight's Tour
