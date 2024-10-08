@@ -132,3 +132,119 @@ The Eulerian circuit generated is not guaranteed to match the expected order bec
 The route depends on how the algorithm decides to traverse edges. In the current implementation, the algorithm may not prioritize the exact input order of edges.
 
 ## 3. The Knight's Tour
+
+### Overview
+
+The **Knight's Tour** problem involves finding a path on a chessboard where the knight visits every square exactly once. The knight starts from a given square, and it must use its unique L-shaped moves to cover all squares without revisiting any.
+The goal is to find such a path, and if it exists, output the sequence of moves that the knight takes. This is typically solved using **backtracking** or **brute-force** techniques.
+
+### Example Input
+```
+Input
+5 5
+2 2
+```
+
+This input means:
+1. **5 5**: The chessboard size is 5x5.
+2. **2 2**: The knight starts at position (2, 2) on the board (indexing starts from 0).
+
+### Knight's Moves
+
+In chess, the knight moves in an L-shape: it can move either two squares in one direction and one square perpendicular, or one square in one direction and two squares perpendicular. From any square `(x, y)`, there are up to **8 possible moves** the knight can make:
+1. `(x+2, y+1)`
+2. `(x+2, y-1)`
+3. `(x-2, y+1)`
+4. `(x-2, y-1)`
+5. `(x+1, y+2)`
+6. `(x+1, y-2)`
+7. `(x-1, y+2)`
+8. `(x-1, y-2)`
+
+### Initialization
+
+The chessboard is initialized with all squares marked as **unvisited** (often with `-1` in code), except for the knight's starting square, which is marked with the move number `0` (indicating it's the first move).
+
+In this case:
+- The knight starts at `(2, 2)`, so the board looks like this initially:
+```
+-1  -1  -1  -1  -1
+-1  -1  -1  -1  -1
+-1  -1   0  -1  -1
+-1  -1  -1  -1  -1
+-1  -1  -1  -1  -1
+```
+Here, `0` represents the starting point.
+
+### Knight's Tour Process
+
+The **Knight's Tour algorithm** works by recursively trying to move the knight to unvisited squares. The idea is to keep moving the knight from square to square, marking each square as visited with an increasing move number, until all 25 squares on the board have been visited. If a dead-end is reached (i.e., no valid moves are left), the algorithm backtracks and tries a different path.
+
+### Brute-Force Approach
+
+The brute-force approach for solving the Knight's Tour involves the following steps:
+
+1. **Start from (2, 2)**: Mark this square as visited and set it as `0` (first move).
+2. **Try all 8 possible knight moves** from (2, 2):
+   - For each valid move (i.e., a move that stays within the board and lands on an unvisited square), move the knight and mark the square with the next move number (`1`, `2`, etc.).
+   - If a move doesn't work (leads to a dead-end), backtrack by unmarking the square and trying a different move.
+3. **Continue until the knight visits all squares on the board**.
+
+### Output
+
+Once a complete valid path is found, the sequence of moves is output as coordinates, showing the order in which the knight visits each square. In this example, let's assume the knight completes the tour successfully.
+
+### Example Output
+
+For the given starting point `(2, 2)`, here is a possible output (the exact sequence may vary):
+
+```
+Output
+2 2
+4 1
+2 0
+0 1
+1 3
+3 4
+4 2
+3 0
+1 1
+0 3
+2 4
+4 3
+3 1
+1 0
+0 2
+1 4
+3 3
+2 1
+4 0
+3 2
+4 4
+2 3
+0 4
+1 2
+0 0
+```
+
+### Explanation of Moves
+
+Each line in the output represents a square on the board that the knight visits, in the order the squares are visited. Here's a breakdown:
+
+1. **Start at (2, 2)**.
+2. From there, the knight moves to (4, 1), making its L-shaped move.
+3. The knight then moves to (2, 0), and so on.
+
+This path continues until all squares have been visited.
+
+### Visualization of the Final Chessboard
+In this 5x5 board, each number represents the order in which the knight visited the square:
+
+```
+24   3  14  19  22
+ 9  12   1   6  17
+ 2   0  25   5  16
+23  11   4  18   7
+10  13   8  21  20
+```
+
